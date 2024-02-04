@@ -7,13 +7,13 @@ import { v4 } from 'uuid';
 function App() {
   const [log, setLog] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState({});
+  const [__, setUser] = useState({});
 
   const navigate = useNavigate();
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
-
+    
     try {
       if (log === '' || password === '') {
         return toast.error('Preencha todos os campos!');
