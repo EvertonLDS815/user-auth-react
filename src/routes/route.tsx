@@ -28,8 +28,7 @@ function Router() {
           ) : (
             <Navigate to="/" replace />
           )
-        }
-      />
+        } />
     </Routes>
   )
 }

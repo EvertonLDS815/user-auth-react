@@ -1,9 +1,8 @@
 import { FormEvent, useState } from 'react';
-import {api} from '../../utils/api';
 import { setCookie } from 'nookies';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { v4 } from 'uuid';
 
 function App() {
   const [log, setLog] = useState('');
@@ -19,13 +18,18 @@ function App() {
       if (log === '' || password === '') {
         return toast.error('Preencha todos os campos!');
       }
-  
-      const response = await api.post('/login', {
+      
+      if (log !== 'Ronaldo' || password !== 'ronaldo22') {
+        throw new Error('Errou!')
+      }
+      const response = {
+        _id: v4(),
         login: log,
-        password: password
-      });
-  
-      const {_id, login, token} = response.data;
+        password,
+        token: v4()
+      };
+
+      const {_id, login, token} = response;
   
       setCookie(undefined, '@myform.token', token, {
         maxAge: 60 * 60 * 2,
@@ -34,13 +38,13 @@ function App() {
   
       setUser({
           _id,
-          login
+          login: log
       });
   
-      api.defaults.headers['Authorization'] = `Bearer ${token}`;
       navigate('/private');
       return toast.success(`Bem vindo ${login}!`)
     } catch (err) {
+      console.error(err)
       return toast.error('Login/senha inválida!');
     }
     
