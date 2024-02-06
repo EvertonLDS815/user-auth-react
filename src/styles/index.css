@@ -101,4 +101,8 @@ body {
     .container {
         width: 85vw;
     }
+    
+    .content-space {
+        width: 85vw;
+    }
 }
